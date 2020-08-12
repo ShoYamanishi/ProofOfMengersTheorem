@@ -4,5 +4,5 @@
 
 I came up with the basic idea while I was reading Diestel's Graph Theory.
 I don't think there is any major flaw in the proof, but 
-it is not elegant and lengthy, so there will be no academic value.
+it is not elegant and it is lengthy, so there will be no academic value in it.
 I just wanted to have a closure to get it off my head.

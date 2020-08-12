@@ -212,8 +212,6 @@ and denote it by $\kappa_G(s, t)$ hereinafter.
 
 The purpose of this article is to propose a new proof by recursively applying contraction of
 a maximum bipartite matching of a minimum $s$-$t$ separator in a graph.
-We also briefly discuss the possibility of finding algorithms for determining $s$-$t$ connectivity
-and maximum number of vertex-disjoint $s$-$t$ paths.
 
 It is easy to see the maximum number of disjoint $s$-$t$ paths does not exceed $\kappa_G(s, t)$.
 We prove that we can actually construct $\kappa_G(s, t)$ disjoint $s$-$t$ paths in $G$.
@@ -511,6 +509,73 @@ such that $\kappa_{J_R^n/M'_n}(u_n, w) = \kappa_{J_R^n}(u_n, w)$.
 Finally we obtain a bipartite matching $M_n \cup M'_n$ of $X$ in $G_s^+$, contraction of which does not decrease the
 $s$-$t$ connectivity of $G$. {\bf Q.E.D.}
 
+\begin{proposition}\label{prop1}
+Let $G=(V, E)$ be a graph and $s$ and $t$ be two distinct
+vertices in $G$ such that $\{s, t\}\not\in E \wedge d_G(s)=\kappa_G(s, t)$.
+Let $m$ and $n$ be any positive integers such that $m \ge n$.
+We add to $G$ $m$ new vertices $W$,
+and for each $v \in W$ add an edge $\{s, v\}$.
+We also add some new edges between $W$ and $V\backslash N_G(s)$,
+and denote the resultant graph by $G'$.
+If $\kappa_{G'}(s, t)\ge \kappa_G(s, t) + n$, then we can find a subset $X$ of $W$
+such that $|X| = n$, and $\kappa_{G'[V(G)\cup X]}(s, t) = \kappa_G(s, t) + n$ (Fig. \ref{label_fig12}(a)).
+
+\end{proposition}
+\begin{figure}\begin{center}
+\epsfig{file=figs/fig12.eps, height = 7cm}
+\caption[Fig12]{$G'$ and $G'-v_1$.}
+\label{label_fig12}
+\end{center}\end{figure}
+{\bf Proof}\\
+This is obvious, but we include a proof for formality.
+Let $\kappa_G(s, t) = k$,\\ $\kappa_{G'}(s, t) = l$.
+First, we prove we can remove
+$k + m - l$ vertices in $W$ without decreasing the $s$-$t$ connectivity below $l$.
+
+If $k = l$, then we can remove all the vertices in $W$ so we assume $k < l$.
+Pick any vertex $v_1$ in $W$ whose removal decreases the $s$-$t$ connectivity in $G'$,
+i.e. $\kappa_{G'}(s, t) - 1 = \kappa_{G' - v_1}(s, t)$.
+We can find such a vertex in $W$ otherwise $\kappa_G(s, t)$ would be greater than  $k$.
+Let $G^1$ be $G' - v_1$, and $S_1$ be a minimum $s$-$t$ separator in $G^1$.
+Let $G_t^1$ be the component of $G^1 - S_1$ to which $t$ belongs, and $G_s^1$ be $G^1 - G_t^1$.
+Please note $G_s^1$ contains $S_1$.
+As $S_1\cup\{v_1\}$ form a minimum $s$-$t$ separator in $G'$, $v_1$ is adjacent to at least
+one vertex $u_1$ in $G_t^1$ (Fig. \ref{label_fig12}(b)).
+
+If $l - k = 1$, removal of any vertex in $W\backslash\{v_1\}$ does not
+decrease $s$-$t$ connectivity of $G^1$, otherwise $\kappa_G(s, t)$ would be less than $k$.
+So we can remove all the vertices in $W\backslash\{v_1\}$ from $G'$ and obtain a graph $G^*$
+such that $\kappa_{G^*}(s, t) = l$.
+
+If $l - k > 1$, let $G_+^1$ be a graph based on $G_s^1$ augmented by a new vertex $t_1$ and
+new edges between all the vertices in $S_1$ and $t_1$.
+Please note that $\kappa_{G_+^1}(s, t_1) = l - 1$.
+Pick any vertex $v_2$ in $W\backslash\{v_1\}$ whose removal decreases the $s$-$t$ connectivity
+in $G_+^1$, i.e. $\kappa_{G_+^1}(s, t_1) - 1 = \kappa_{G_+^1 - v_2}(s, t_1)$.
+We can find such a vertex in $W\backslash\{v_1\}$ otherwise $\kappa_G(s, t)$ would be greater than $k$.
+Let $G^2$ be $G_+^1 - v_2$, and $S_2$ be a minimum $s$-$t_1$ separator in $G^2$.
+Let $G_t^2$ be the component of $G^2 - S_2$ to which $t$ belongs, and $G_s^2$ be $G^2 - G_t^2$.
+Please note $G_s^2$ contains $S_2$.
+As $S_2\cup\{v_2\}$ form a minimum $s$-$t_1$ separator in $G_+^1$, $v_2$ is adjacent to at least
+one vertex $u_2$ in $G_t^2$.
+
+We can continue this process up to $l-k$ times and obtain $v_{l-k}$, $S_{l-k}$, and $G_+^{l-k}$.
+Now $\kappa_{G_+^{l-k}}(s, t_{l-k}) = l - (l - k) = k$, and removal of any vertex in 
+$W\backslash\{v_1, \ldots, v_{l_k}\}$ does not decrease the $s$-$t_{l-k}$ connectivity of $G_+^{l-k}$,
+otherwise $\kappa_G(s, t)$ would be less than $k$.
+So we can remove all the vertices in $W\backslash\{v_1, \ldots, v_{l-k}\}$ from $G'$,
+and obtain a graph $G^*$ such that $\kappa_{G^*}(s, t) = l$ (Fig. \ref{label_fig13}).
+
+Let $W' := \{v_1, \ldots, v_{l-k}\}$.
+Now $N_G(s) \cup W'$ is a minimum $s$-$t$ separator of $G^*$.
+We can pick any $n$ vertices in $W'$ and remove the rest from $G^*$.
+The $s$-$t$ connectivity of the resultant graph is exactly $n + k$. {\bf Q.E.D.}
+
+\begin{figure}\begin{center}
+\epsfig{file=figs/fig13.eps, height = 7cm}
+\caption[Fig13]{$G^1, \dots, G^{l-k}$.}
+\label{label_fig13}
+\end{center}\end{figure}
 
 
 \bibliography{menger}
